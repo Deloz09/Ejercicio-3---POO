@@ -3,7 +3,7 @@
  * Encargada de ejecutar el programa, llevar a cabo la seleccion de opciones, comunicarse con las
  * demás clases y sus respectivos procesos.
  * 
- * @version 1.0, 22/08/2021
+ * @version 1.0, 5/09/2021
  * @author Diego E. Lemus L. - 21469
  */
 
@@ -21,6 +21,7 @@ public class Controlador{
 
         //Mensaje de bienvenida
 		v.bienvenida();
+        estac.leerArchivo();
 
         while (op != 5){
 			//Menu
@@ -31,25 +32,51 @@ public class Controlador{
                     String placa = v.pedirPlaca();
                     String marca = v.pedirMarca();
                     String modelo = v.pedirModelo();
-                    int tiempo = v.pedirHoraEgreso()
+                    int tiempo = v.pedirHoraEgreso();
                     Vehiculo vehiculo = new Vehiculo(placa, marca, modelo, tiempo);
-
+                    estac.ingresarVehiculo(vehiculo);
                 break;
 
                 case 2:
                     String p = v.pedirPlaca();
-
+                    estac.SalidaVehiculo(p);
                 break;
 
                 case 3:
-                    estac.leerArchivo();
+                    String tamano = v.pedirTamano();
+                    String techoP = v.pedirTecho();
+                    boolean techo = false;
+                    String aereoP = v.pedirAereo();
+                    boolean aereo = false;
+                    int uso = 0;
+
+                    if(techoP.equals("false")){
+                        techo = false;
+                    }else if(techoP.equals("true")){
+                        techo = true;
+                    }
+
+                    if(aereoP.equals("false")){
+                        aereo = false;
+                    }else if(aereoP.equals("true")){
+                        aereo = true;
+                    }
+
+                    estac.agregar_Espacios(tamano, techo, aereo, uso);
+                    
                 break;
 
                 case 4:
-
+                    double b = estac.getPromedio();
+                    int d = estac.getRechazados();
+                    String e = estac.getMarca();
+                    String c = estac.getParqueoUsado();
+                    String f = estac.getCaracteristicasP();
+                    v.mostrarEstadisticas(b, c, d, e, f);
                 break;
 
                 case 5:
+                    estac.escribirArchivo();
                     op = 5;
                 break;
 
